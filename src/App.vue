@@ -1,71 +1,12 @@
 <template>
 
-  <div class="container mx-auto">
-    <header-component/>
+  <div class="container mx-auto px-2 md:px-0">
+    <header-component :videos="videos" @findVideos="findVideos"/>
 
 
     <main class="py-5">
 
-      <section class="w-4/5 mx-auto">
-        <div class="mb-2 flex flex-row items-center font-bold cursor-pointer">
-          <img class="w-7 mr-1" src="@/assets/filters.png" alt="filters">
-          <span>Filters</span>
-        </div>
-        <hr class="mb-5">
-
-
-        <div class="w-4/5 flex mb-10">
-          <div class="w-1/2 px-5"><img class="rounded-2xl" src="@/assets/preview.jpg" alt=""></div>
-          <div class="flex flex-col w-1/2">
-            <div class="text-4xl py-2 font-medium overflow-hidden">synthwave radio 🌌 - beats to chill/study</div>
-            <div class="text-gray-500 text-sm overflow-hidden py-1 flex flex-row items-center">
-              <p>2 Days ago</p>
-              <div class="bg-gray-500 w-1 h-1 mx-2 rounded-full"></div>
-              <p>123K Views</p>
-            </div>
-            <div class="flex items-center py-2">
-              <div class="w-6 h-6 rounded-full border bg-gray-200 cursor-pointer mr-3"></div>
-              <span class="text-gray-500 text-sm overflow-hidden">Author</span>
-            </div>
-            <div class="text-gray-600">Insert Description of video here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sit!</div>
-          </div>
-        </div>
-
-        <div class="w-4/5 flex mb-10">
-          <div class="w-1/2 px-5"><img class="rounded-2xl" src="@/assets/preview3.jpg" alt=""></div>
-          <div class="flex flex-col w-1/2">
-            <div class="text-4xl py-2 font-medium overflow-hidden">Retro Wave mix - Black Cat Audio</div>
-            <div class="text-gray-500 text-sm overflow-hidden py-1 flex flex-row items-center">
-              <p>2 Days ago</p>
-              <div class="bg-gray-500 w-1 h-1 mx-2 rounded-full"></div>
-              <p>123K Views</p>
-            </div>
-            <div class="flex items-center py-2">
-              <div class="w-6 h-6 rounded-full border bg-gray-200 cursor-pointer mr-3"></div>
-              <span class="text-gray-500 text-sm overflow-hidden">Author</span>
-            </div>
-            <div class="text-gray-600">Insert Description of video here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sit!</div>
-          </div>
-        </div>
-
-        <div class="w-4/5 flex mb-10">
-          <div class="w-1/2 px-5"><img class="rounded-2xl" src="@/assets/preview2.jpg" alt=""></div>
-          <div class="flex flex-col w-1/2">
-            <div class="text-4xl py-2 font-medium overflow-hidden">lofi hip hop radio 📚 - beats to relax/study to</div>
-            <div class="text-gray-500 text-sm overflow-hidden py-1 flex flex-row items-center">
-              <p>2 Days ago</p>
-              <div class="bg-gray-500 w-1 h-1 mx-2 rounded-full"></div>
-              <p>123K Views</p>
-            </div>
-            <div class="flex items-center py-2">
-              <div class="w-6 h-6 rounded-full border bg-gray-200 cursor-pointer mr-3"></div>
-              <span class="text-gray-500 text-sm overflow-hidden">Author</span>
-            </div>
-            <div class="text-gray-600">Insert Description of video here. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat, sit!</div>
-          </div>
-        </div>
-
-      </section>
+      <video-list :videos="filter_videos" />
 
     </main>
   </div>
@@ -73,14 +14,155 @@
 
 <script>
 import HeaderComponent from '@/components/HeaderComponent.vue'
-
+import VideoList from "@/components/VideoList.vue";
+import VideoItem from "@/components/VideoItem.vue";
 export default {
     components: {
-        HeaderComponent
+        VideoItem,
+        HeaderComponent, VideoList
     },
     data() {
-        return {}
+        return {
+            videos: [
+                {
+                    title: 'React Hooks Tutorial',
+                    description: 'Learn how to use React Hooks to simplify your code and manage state in functional components.',
+                    date: '2022-01-01',
+                    author: 'John Smith',
+                    views: 10000,
+                    preview: 'i.ytimg.com/vi/xDLIsbSx248/maxresdefault.jpg?7857057827'
+                },
+                {
+                    title: 'Introduction to Python',
+                    description: 'Get started with Python programming language and learn the basics of data types, loops, and functions.',
+                    date: '2022-01-02',
+                    author: 'Jane Doe',
+                    views: 5000,
+                    preview: 'https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2019/04/Introduction-To-Python-1.jpg'
+                },
+                {
+                    title: 'JavaScript Promises',
+                    description: 'Learn how to use JavaScript Promises to handle asynchronous code and avoid callback hell.',
+                    date: '2022-01-03',
+                    author: 'Bob Johnson',
+                    views: 8000,
+                    preview: 'https://dmitripavlutin.com/javascript-promises-then-vs-then-catch/cover.png'
+                },
+                {
+                    title: 'CSS Grid Layout',
+                    description: 'Master CSS Grid Layout and create responsive, flexible layouts for your web pages.',
+                    date: '2022-01-04',
+                    author: 'Alice Lee',
+                    views: 7000,
+                    preview: 'https://www.freecodecamp.org/news/content/images/2022/05/CSS-GRID-3.png'
+                },
+                {
+                    title: 'Node.js Basics',
+                    description: 'Learn the basics of Node.js and create a simple web server with Express.js.',
+                    date: '2022-01-05',
+                    author: 'Mike Brown',
+                    views: 6000,
+                    preview: 'https://i.ytimg.com/vi/U8XF6AFGqlc/maxresdefault.jpg'
+                },
+                {
+                    title: 'Java Programming for Beginners',
+                    description: 'Get started with Java programming language and learn how to create classes, objects, and methods.',
+                    date: '2022-01-06',
+                    author: 'Samantha Green',
+                    views: 4000,
+                    preview: 'https://contentstatic.techgig.com/photo/93000110/what-makes-java-still-popular-among-developers.jpg?28608'
+                },
+                {
+                    title: 'MongoDB Tutorial',
+                    description: 'Learn how to use MongoDB, a popular NoSQL database, and create CRUD operations with Mongoose.',
+                    date: '2022-01-07',
+                    author: 'David Kim',
+                    views: 9000,
+                    preview: 'https://webimages.mongodb.com/_com_assets/cms/kuzt9r42or1fxvlq2-Meta_Generic.png'
+                },
+                {
+                    title: 'React Native Crash Course',
+                    description: 'Learn how to build mobile apps with React Native and use components like View, Text, and Image.',
+                    date: '2022-01-08',
+                    author: 'Emily Chen',
+                    views: 12000,
+                    preview: 'https://i.ytimg.com/vi/mkualZPRZCs/maxresdefault.jpg'
+                }
+            ],
+            filter_videos: [
+                {
+                    title: 'React Hooks Tutorial',
+                    description: 'Learn how to use React Hooks to simplify your code and manage state in functional components.',
+                    date: '2022-01-01',
+                    author: 'John Smith',
+                    views: 10000,
+                    preview: 'https://i.ytimg.com/vi/xDLIsbSx248/maxresdefault.jpg?7857057827'
+                },
+                {
+                    title: 'Introduction to Python',
+                    description: 'Get started with Python programming language and learn the basics of data types, loops, and functions.',
+                    date: '2022-01-02',
+                    author: 'Jane Doe',
+                    views: 5000,
+                    preview: 'https://d1jnx9ba8s6j9r.cloudfront.net/blog/wp-content/uploads/2019/04/Introduction-To-Python-1.jpg'
+                },
+                {
+                    title: 'JavaScript Promises',
+                    description: 'Learn how to use JavaScript Promises to handle asynchronous code and avoid callback hell.',
+                    date: '2022-01-03',
+                    author: 'Bob Johnson',
+                    views: 8000,
+                    preview: 'https://dmitripavlutin.com/javascript-promises-then-vs-then-catch/cover.png'
+                },
+                {
+                    title: 'CSS Grid Layout',
+                    description: 'Master CSS Grid Layout and create responsive, flexible layouts for your web pages.',
+                    date: '2022-01-04',
+                    author: 'Alice Lee',
+                    views: 7000,
+                    preview: 'https://www.freecodecamp.org/news/content/images/2022/05/CSS-GRID-3.png'
+                },
+                {
+                    title: 'Node.js Basics',
+                    description: 'Learn the basics of Node.js and create a simple web server with Express.js.',
+                    date: '2022-01-05',
+                    author: 'Mike Brown',
+                    views: 6000,
+                    preview: 'https://i.ytimg.com/vi/U8XF6AFGqlc/maxresdefault.jpg'
+                },
+                {
+                    title: 'Java Programming for Beginners',
+                    description: 'Get started with Java programming language and learn how to create classes, objects, and methods.',
+                    date: '2022-01-06',
+                    author: 'Samantha Green',
+                    views: 4000,
+                    preview: 'https://contentstatic.techgig.com/photo/93000110/what-makes-java-still-popular-among-developers.jpg?28608'
+                },
+                {
+                    title: 'MongoDB Tutorial',
+                    description: 'Learn how to use MongoDB, a popular NoSQL database, and create CRUD operations with Mongoose.',
+                    date: '2022-01-07',
+                    author: 'David Kim',
+                    views: 9000,
+                    preview: 'https://webimages.mongodb.com/_com_assets/cms/kuzt9r42or1fxvlq2-Meta_Generic.png'
+                },
+                {
+                    title: 'React Native Crash Course',
+                    description: 'Learn how to build mobile apps with React Native and use components like View, Text, and Image.',
+                    date: '2022-01-08',
+                    author: 'Emily Chen',
+                    views: 12000,
+                    preview: 'https://i.ytimg.com/vi/mkualZPRZCs/maxresdefault.jpg'
+                }
+            ]
+        }
+    },
+    methods: {
+        findVideos(data){
+            this.filter_videos = data
+        }
     }
+
 }
 </script>
 
